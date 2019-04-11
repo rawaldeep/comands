@@ -51,26 +51,20 @@ class App extends Component {
         }));
       }
     };
-    finishOrder = () =>{
-      this.addDrink()
-      let orderSummeryIngriendients = [];
+     finishOrder = async () =>{
+      await this.addDrink();
       let a = this.state.Order;
       let li;
+      document.getElementById('ingredients').style.display = 'none';
       let list = document.getElementById('orderSummery');
       a.map((item, index) => (
         li = document.createElement("li"),
-        
-        // orderSummeryIngriendients.push(item.orderIngriendients),
-        li.innerHTML = (
-          "<li><h3>Drink "+(index+1)+" : </h3> <p>Ingredients: "+item.orderIngriendients+"</p><p>Price of drink: "+item.orderPrice+"</p></li>"
-           
-          ),
+        li.innerHTML = ( "<li><h3>Drink "+(index+1)+" : </h3> <p>Ingredients: "+item.orderIngriendients+"</p><p>Price of drink: "+item.orderPrice+"</p></li>"),
         list.appendChild(li)
       ));
       
     }
-
-
+    
     addThis=(event)=>{
       var array = [...this.state.Ingredients]; 
       array.push(event.target.dataset.tag);
@@ -112,7 +106,7 @@ class App extends Component {
     return (
       <div className="App">
       <h1>Prepare Your Drink</h1>
-      <h3 id="price">Price of your Drink:{this.state.TotalPrice}</h3>
+      <h3 id="price">Total Price : {this.state.TotalPrice}</h3>
       <ul id="ingredients">
        <Ingredients things={this.keys} prices={this.values} add={()=>this.addThis} sub={()=>this.subThis}/>
        </ul>
@@ -122,7 +116,7 @@ class App extends Component {
       </ul>
 
        <button onClick={()=> this.addDrink()}>Add Another Drink</button>
-       <button onClick={()=> this.finishOrder()}>continue</button>
+       <button onClick={ ()=> this.finishOrder()}>continue</button>
        <button onClick={()=>{
          console.log(this.state);
          }}>print</button>
