@@ -98,6 +98,16 @@ class App extends Component {
     }
   }
     };
+    clearOrder = () =>{
+      this.setState(()=>({
+        Ingredients: [],
+        Prices: [],
+        TotalPrice: 0,
+        Order: []
+      }))
+      document.getElementById('ingredients').style.display = 'block';
+      document.getElementById('orderSummery').innerHTML = '';
+    }
    
     
 
@@ -117,6 +127,7 @@ class App extends Component {
 
        <button onClick={()=> this.addDrink()}>Add Another Drink</button>
        <button onClick={ ()=> this.finishOrder()}>continue</button>
+       <button onClick={ ()=> this.clearOrder()}>I don't want it</button>
        <button onClick={()=>{
          console.log(this.state);
          }}>print</button>
