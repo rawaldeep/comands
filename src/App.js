@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Ingredients from './components/Ingredients';
-// import Order from './components/Order';
 
 class App extends Component {
   constructor(props){
