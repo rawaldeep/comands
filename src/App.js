@@ -59,6 +59,12 @@ class App extends Component {
           Order: orderDetail
         }));
       }
+      let goback = document.getElementById("ingredients").style.display;
+      if(goback === 'none'){
+        document.getElementById("ingredients").style.display = "block";
+        document.getElementById("orderSummery").innerHTML = '';
+      }
+
     };
      finishOrder = async () =>{
       await this.addDrink();
@@ -70,7 +76,7 @@ class App extends Component {
       a.map((item, index) => (
         li = document.createElement("li"),
         btn = document.createElement("button"),
-        btn.innerHTML = "click",
+        btn.innerHTML = "I don't want this drink",
         li.setAttribute('data-key', index),
         btn.setAttribute('index', index),
         li.innerHTML = ( `<h3>Drink ${(index+1)} : </h3> <p>Ingredients: ${item.orderIngriendients}</p><p>Price of drink: ${item.orderPrice}</p>`),
