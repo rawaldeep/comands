@@ -54,16 +54,35 @@ class App extends Component {
       await this.addDrink();
       let a = this.state.Order;
       let li;
+      let btn;
       document.getElementById('ingredients').style.display = 'none';
       let list = document.getElementById('orderSummery');
       a.map((item, index) => (
         li = document.createElement("li"),
-        li.innerHTML = ( "<li><h3>Drink "+(index+1)+" : </h3> <p>Ingredients: "+item.orderIngriendients+"</p><p>Price of drink: "+item.orderPrice+"</p></li>"),
-        list.appendChild(li)
+        btn = document.createElement("button"),
+        btn.innerHTML = "click",
+        li.setAttribute('data-key', index),
+        btn.setAttribute('index', index),
+        li.innerHTML = ( `<h3>Drink ${(index+1)} : </h3> <p>Ingredients: ${item.orderIngriendients}</p><p>Price of drink: ${item.orderPrice}</p>`),
+        li.appendChild(btn),
+        list.appendChild(li),
+
+        btn.onclick = (event) => {
+          let value = event.target.index;
+          a.splice(value, 1);
+          this.setState(()=>({
+            TotalPrice: this.state.TotalPrice - item.orderPrice
+          }))
+          let target = document.body.querySelector(`li[data-key='${index}']`);
+          target.remove();
+          // let target = target1.getAttribute('key');
+          
+        }
+
       ));
       
     }
-    
+
     addThis=(event)=>{
       var array = [...this.state.Ingredients]; 
       array.push(event.target.dataset.tag);
