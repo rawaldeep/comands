@@ -26,8 +26,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-#orderSummery{
-  
+#ingredients{
+  display: flex;
+  justify-content: space-around;
 }
 .App-link {
   color: #61dafb;

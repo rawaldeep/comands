@@ -61,7 +61,7 @@ class App extends Component {
       }
       let goback = document.getElementById("ingredients").style.display;
       if(goback === 'none'){
-        document.getElementById("ingredients").style.display = "block";
+        document.getElementById("ingredients").style.display = "flex";
         document.getElementById("orderSummery").innerHTML = '';
       }
 
@@ -136,7 +136,7 @@ class App extends Component {
         TotalPrice: 0,
         Order: []
       }))
-      document.getElementById('ingredients').style.display = 'block';
+      document.getElementById('ingredients').style.display = 'flex';
       document.getElementById('orderSummery').innerHTML = '';
     }
    
