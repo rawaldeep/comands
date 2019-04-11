@@ -1,25 +1,121 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Ingredients from './components/Ingredients';
+// import Order from './components/Order';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      Ingredients: [],
+      Prices: [],
+      TotalPrice: 0,
+      Order: []
+    }
+    const Price = {
+      Gin: 5,
+      Vodka: 4,
+      Rum: 3,
+      Jenever: 6,
+      Cola: 1,
+      OrangeJuice: 1,
+      Sprite: 1,
+      AppleJuice: 1,
+      IceTea: 1,
+      SparklingWater: 1,
+      Mint: 0.5,
+      Cucumber: 0.5,
+      Citron: 0.5,
+      Orange: 0.5,
+      Lavender: 0.5 
+    }
+    
+    this.keys = Object.keys(Price);
+    this.values = Object.values(Price);
+  }
+    addDrink=()=>{
+      var order = [...this.state.Ingredients];
+      var orderPrice = [...this.state.Prices];
+      if(orderPrice.length > 0){
+        var sum = orderPrice.reduce((partial_sum, a) => partial_sum + a);
+        var orderDetail = [...this.state.Order]
+        orderDetail.push({
+            orderIngriendients: order,
+            orderPrice: sum
+          });
+        
+        this.setState(()=>({
+          Ingredients: [],
+          Prices: [],
+          Order: orderDetail
+        }));
+      }
+    };
+    finishOrder = () =>{
+      this.addDrink();
+      this.state.order.map((item, index) => (
+        console.log(item);
+        ))
+      // document.getElementById('orderSummery').style.display = "block";
+
+
+    }
+    addThis=(event)=>{
+      var array = [...this.state.Ingredients]; 
+      array.push(event.target.dataset.tag);
+      var pricearr = [...this.state.Prices];
+      pricearr.push(parseFloat(event.target.dataset.price));
+    
+      // console.log(event.target.dataset.price);
+      let price = parseFloat(event.target.dataset.price);
+      this.setState((prevState)=>({
+        TotalPrice: parseFloat(prevState.TotalPrice) + price,
+        Ingredients: array,
+        Prices: pricearr
+      }));
+    };
+    subThis=(event)=>{
+      var array = [...this.state.Ingredients]; // make a separate copy of the array
+      var index = array.indexOf(event.target.dataset.tag);
+      var pricearr = [...this.state.Prices];
+      var priceIndex = pricearr.indexOf(parseFloat(event.target.dataset.price));
+      if(index !== -1 && priceIndex !== -1){
+        array.splice(index, 1);
+        pricearr.splice(priceIndex, 1);
+  
+      let price = parseFloat(event.target.dataset.price);
+      if(this.state.TotalPrice >= 0 ){
+      this.setState((prevState)=>({
+        Ingredients: array,
+        Prices: pricearr,
+        TotalPrice: parseFloat(prevState.TotalPrice) - price
+      }));
+    }
+  }
+    };
+   
+    
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <h1>Prepare Your Drink</h1>
+      <h3 id="price">Price of your Drink:{this.state.TotalPrice}</h3>
+      <ul id="ingredients">
+       <Ingredients things={this.keys} prices={this.values} add={()=>this.addThis} sub={()=>this.subThis}/>
+       </ul>
+       {/* <div id="orderSummery"> */}
+      
+
+       {/* <Order ordersummery={this.state.Order}/> */}
+       
+       {/* </div> */}
+       <button onClick={()=> this.addDrink()}>Add Another Drink</button>
+       <button onClick={()=> this.finishOrder()}>continue</button>
+       <button onClick={()=>{
+         console.log(this.state);
+         }}>print</button>
       </div>
     );
   }
