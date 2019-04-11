@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Ingredients from './components/Ingredients';
+import Spirits from './components/Spirits';
+import SoftDrinks from './components/SoftDrinks';
+import Garnishes from './components/Garnishes';
 
 class App extends Component {
   constructor(props){
@@ -11,17 +13,21 @@ class App extends Component {
       TotalPrice: 0,
       Order: []
     }
-    const Price = {
+    const Spirits = {
       Gin: 5,
       Vodka: 4,
       Rum: 3,
       Jenever: 6,
+    }
+    const SoftDrinks = {
       Cola: 1,
       OrangeJuice: 1,
       Sprite: 1,
       AppleJuice: 1,
       IceTea: 1,
-      SparklingWater: 1,
+      SparklingWater: 1
+    }
+    const Garnishes = {
       Mint: 0.5,
       Cucumber: 0.5,
       Citron: 0.5,
@@ -29,15 +35,19 @@ class App extends Component {
       Lavender: 0.5 
     }
     
-    this.keys = Object.keys(Price);
-    this.values = Object.values(Price);
+    this.Spiritskeys = Object.keys(Spirits);
+    this.SpiritsValues = Object.values(Spirits);
+    this.SoftDrinkKeys = Object.keys(SoftDrinks);
+    this.SoftDrinkValues = Object.values(SoftDrinks);
+    this.GarnishesKeys = Object.keys(Garnishes);
+    this.GarnishesValues = Object.values(Garnishes);
   }
     addDrink=()=>{
-      var order = [...this.state.Ingredients];
-      var orderPrice = [...this.state.Prices];
+      let order = [...this.state.Ingredients];
+      let orderPrice = [...this.state.Prices];
       if(orderPrice.length > 0){
-        var sum = orderPrice.reduce((partial_sum, a) => partial_sum + a);
-        var orderDetail = [...this.state.Order]
+        let sum = orderPrice.reduce((partial_sum, a) => partial_sum + a);
+        let orderDetail = [...this.state.Order]
         orderDetail.push({
             orderIngriendients: order,
             orderPrice: sum
@@ -68,15 +78,14 @@ class App extends Component {
         list.appendChild(li),
 
         btn.onclick = (event) => {
+          // this is the delete button that will delete the individual order
           let value = event.target.index;
           a.splice(value, 1);
           this.setState(()=>({
             TotalPrice: this.state.TotalPrice - item.orderPrice
           }))
           let target = document.body.querySelector(`li[data-key='${index}']`);
-          target.remove();
-          // let target = target1.getAttribute('key');
-          
+          target.remove();// you gotta have faith in simple sounding functions
         }
 
       ));
@@ -84,12 +93,10 @@ class App extends Component {
     }
 
     addThis=(event)=>{
-      var array = [...this.state.Ingredients]; 
+      let array = [...this.state.Ingredients]; 
       array.push(event.target.dataset.tag);
-      var pricearr = [...this.state.Prices];
+      let pricearr = [...this.state.Prices];
       pricearr.push(parseFloat(event.target.dataset.price));
-    
-      // console.log(event.target.dataset.price);
       let price = parseFloat(event.target.dataset.price);
       this.setState((prevState)=>({
         TotalPrice: parseFloat(prevState.TotalPrice) + price,
@@ -98,10 +105,10 @@ class App extends Component {
       }));
     };
     subThis=(event)=>{
-      var array = [...this.state.Ingredients]; // make a separate copy of the array
-      var index = array.indexOf(event.target.dataset.tag);
-      var pricearr = [...this.state.Prices];
-      var priceIndex = pricearr.indexOf(parseFloat(event.target.dataset.price));
+      let array = [...this.state.Ingredients]; // make a separate copy of the array
+      let index = array.indexOf(event.target.dataset.tag);
+      let pricearr = [...this.state.Prices];
+      let priceIndex = pricearr.indexOf(parseFloat(event.target.dataset.price));
       if(index !== -1 && priceIndex !== -1){
         array.splice(index, 1);
         pricearr.splice(priceIndex, 1);
@@ -127,22 +134,26 @@ class App extends Component {
       document.getElementById('orderSummery').innerHTML = '';
     }
    
-    
-
-
   render() {
     return (
       <div className="App">
       <h1>Prepare Your Drink</h1>
       <h3 id="price">Total Price : {this.state.TotalPrice}</h3>
       <ul id="ingredients">
-       <Ingredients things={this.keys} prices={this.values} add={()=>this.addThis} sub={()=>this.subThis}/>
-       </ul>
-       
-      <ul id='orderSummery'>
-      
+      <ul>
+      <h3>Add Spirits</h3>
+      <Spirits things={this.Spiritskeys} prices={this.SpiritsValues} add={()=>this.addThis} sub={()=>this.subThis}/>
       </ul>
-
+       <ul>
+       <h3>Add SoftDrinks</h3>
+       <SoftDrinks things={this.SoftDrinkKeys} prices={this.SoftDrinkValues} add={()=>this.addThis} sub={()=>this.subThis}/>
+       </ul>
+       <ul>
+         <h3>Add Garnishes</h3>
+       <Garnishes things={this.GarnishesKeys} prices={this.GarnishesValues} add={()=>this.addThis} sub={()=>this.subThis}/>
+       </ul>
+       </ul>
+      <ul id='orderSummery'></ul>
        <button onClick={()=> this.addDrink()}>Add Another Drink</button>
        <button onClick={ ()=> this.finishOrder()}>continue</button>
        <button onClick={ ()=> this.clearOrder()}>I don't want it</button>
