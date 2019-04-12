@@ -1,9 +1,9 @@
 .App {
   text-align: center;
+  font-family: "Roboto Condensed", sans-serif;
 }
 .App ul{
   list-style-type: none;
-  font-family: Arial, Helvetica, sans-serif;
 }
 .App ul li{
   line-height: 1.5em;
@@ -29,6 +29,39 @@
 #ingredients{
   display: flex;
   justify-content: space-around;
+}
+#orderSummery{
+  width: 100%;
+  max-width: 500px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: auto;
+}
+#orderSummery ul{
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.13);
+  margin: 50px 0;
+  padding: 50px 30px 30px;
+}
+#orderSummery ul li{
+  display: flex;
+  justify-content: space-evenly;
+}
+#ingredients ul li{
+  display: flex;
+  justify-content: space-between;
+}
+#orderSummery ul li h3{
+  font-size: 21px;
+  color: #b7bcc3;
+  letter-spacing: 1px;
+}
+#orderSummery ul li p{
+  float: left;
+  color: #344760;
+  font-size: 16px;
+  letter-spacing: .5px;
 }
 .App-link {
   color: #61dafb;

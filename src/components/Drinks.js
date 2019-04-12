@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Spirits extends Component {
+class Drinks extends Component {
     render() {
       return this.props.things.map((item, index) => (
         <li key={index} name={item}>
@@ -14,4 +14,4 @@ class Spirits extends Component {
     }
   }
   
-  export default Spirits;
+  export default Drinks;
