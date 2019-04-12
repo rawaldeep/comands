@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import './App.css';
 import Drinks from './components/Drinks';
 import Order from './components/Order';
+// Import Materialize
+import M from "materialize-css";
 
 class App extends Component {
+  componentDidMount() {
+    // Auto initialize all the things!
+    M.AutoInit();
+}
   constructor(props){
     super(props);
     this.state = {
@@ -144,10 +150,10 @@ class App extends Component {
        </ul>
       </div>
       <div className="row">
-      <div className="col s12">
-      <div className="col s4"><button className="waves-effect waves-light btn-small" onClick={()=> this.addDrink()}>Add Another Drink</button></div>
-      <div className="col s4"><button className="waves-effect waves-light btn-small" onClick={ ()=> this.clearOrder()}>Cancel Order</button></div>
-      <div className="col s4"><button className="waves-effect waves-light btn-small" onClick={ ()=> this.finishOrder()}>Finish Order</button></div>
+      <div className="col s12 pad">
+      <div className="col s4"><button className="waves-effect waves-light btn grey darken-1" onClick={()=> this.addDrink()}>Add Another Drink</button></div>
+      <div className="col s4"><button className="waves-effect waves-light btn red" onClick={ ()=> this.clearOrder()}>Cancel Order</button></div>
+      <div className="col s4"><button className="waves-effect waves-light btn green lighten-1" onClick={ ()=> this.finishOrder()}>Finish Order</button></div>
       </div> 
       </div>{/* Buttons/controls  */}
       </div>
