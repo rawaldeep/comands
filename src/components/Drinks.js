@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Drinks extends Component {
-    render() {
-      return this.props.things.map((item, index) => (
+const Drinks = (props) => {
+      return props.things.map((item, index) => (
         <li key={index} name={item}>
-        <button data-tag={item} data-index={index} data-price={this.props.prices[index]} onClick={this.props.sub(item)}>-</button>
+        <button className="waves-effect waves-teal btn-flat red" data-tag={item} data-index={index} data-price={props.prices[index]} onClick={props.sub(item)}>-</button>
         <span>
             {item}
         </span>
-        <button data-tag={item} data-price={this.props.prices[index]} onClick={this.props.add(item)}>+</button>
+        <button className="waves-effect waves-teal btn-flat red" data-tag={item} data-price={props.prices[index]} onClick={props.add(item)}>
+        +
+        </button>
         </li>
     ));
-    }
+    
   }
   
   export default Drinks;

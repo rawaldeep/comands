@@ -1,14 +1,18 @@
 import React from 'react';
 const Order = (props) => {
       return props.bill.map((item, index) => (
-        <div key={index} data-key={index}>
-        <h3>Drink {(index+1)} : </h3> 
-        <p>Ingredients: {item.orderIngriendients}</p>
-        <p>Price of drink: {item.orderPrice}</p>
-        <button onClick={()=> props.remover(index, item.orderPrice)} >I don't want this drink</button>
+        <div className="col s4" key={index} data-key={index}>
+          <div className="card blue-grey darken-1">
+            <div className="card-content white-text">
+              <span className="card-title">Drink {(index+1)} : </span>
+              <p>Ingredients:<br/> {item.orderIngriendients.join(", ")}</p>
+            <p>Price of drink:<br/>  €{item.orderPrice}</p>
+            </div>
+            <div className="card-action">
+              <a onClick={()=> props.remover(index, item.orderPrice)} >I don't want this drink</a>
+            </div>
+          </div>
         </div>
     ));
     }
-  
-  
   export default Order;

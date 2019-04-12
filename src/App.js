@@ -61,7 +61,6 @@ class App extends Component {
       let goback = document.getElementById("ingredients").style.display;
       if(goback === 'none'){
         document.getElementById("ingredients").style.display = "flex";
-        document.getElementById("orderSummery").innerHTML = '';
       }
 
     };
@@ -122,30 +121,44 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <div className="row">
+      <div class="container">
+      <div className="col s12">
+      <div className="row">
       <h1>Prepare Your Drink</h1>
-      <h3 id="price">Total Price : {this.state.TotalPrice}</h3>
-      <div className="reciept">
-      <Order bill={this.state.Order} remover={this.removeItem}/>
-      </div>
-      <div className="addOrder">
+      <h4 id="price">Total Price : €{this.state.TotalPrice}</h4>
+      <div className="col s12">
       <ul id="ingredients">
-      <ul>
-      <h3>Add Spirits</h3>
+      <ul className="col s4">
+      <h5>Add Spirits</h5>
       <Drinks things={this.Spiritskeys} prices={this.SpiritsValues} add={()=>this.addThis} sub={()=>this.subThis}/>
       </ul>
-       <ul>
-       <h3>Add SoftDrinks</h3>
+       <ul className="col s4">
+       <h5>Add SoftDrinks</h5>
        <Drinks things={this.SoftDrinkKeys} prices={this.SoftDrinkValues} add={()=>this.addThis} sub={()=>this.subThis}/>
        </ul>
-       <ul>
-         <h3>Add Garnishes</h3>
+       <ul className="col s4">
+         <h5>Add Garnishes</h5>
        <Drinks things={this.GarnishesKeys} prices={this.GarnishesValues} add={()=>this.addThis} sub={()=>this.subThis}/>
        </ul>
        </ul>
+      </div>
+      <div className="row">
+      <div className="col s12">
+      <div className="col s4"><button className="waves-effect waves-light btn-small" onClick={()=> this.addDrink()}>Add Another Drink</button></div>
+      <div className="col s4"><button className="waves-effect waves-light btn-small" onClick={ ()=> this.clearOrder()}>Cancel Order</button></div>
+      <div className="col s4"><button className="waves-effect waves-light btn-small" onClick={ ()=> this.finishOrder()}>Finish Order</button></div>
       </div> 
-       <button onClick={()=> this.addDrink()}>Add Another Drink</button>
-       <button onClick={ ()=> this.finishOrder()}>continue</button>
-       <button onClick={ ()=> this.clearOrder()}>I don't want it</button>
+      </div>{/* Buttons/controls  */}
+      </div>
+      </div>
+      <div className="col s12">
+      <div className="row">
+      <Order bill={this.state.Order} remover={this.removeItem}/>
+      </div>
+      </div>
+      </div>{/*Main Container*/ }
+      </div>
       </div>
     );
   }
