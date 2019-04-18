@@ -52,12 +52,15 @@ class App extends Component {
       let orderPrice = [...this.state.Prices];
       if(orderPrice.length > 0){
         let sum = orderPrice.reduce((partial_sum, a) => partial_sum + a);
-        let orderDetail = [...this.state.Order]
-        orderDetail.push({
-            orderIngriendients: order,
-            orderPrice: sum
-          });
-        
+        let orderDetail = [...this.state.Order, { orderIngriendients: order,
+          orderPrice: sum}]
+        console.log(orderDetail);
+        // orderDetail.push({
+        //     // orderId: prevState.orderId++,
+        //     orderIngriendients: order,
+        //     orderPrice: sum
+        //   });
+        // console.log(prevState.Order);
         this.setState(()=>({
           Ingredients: [],
           Prices: [],
@@ -85,10 +88,10 @@ class App extends Component {
 
     addThis=(event)=>{
       let array = [...this.state.Ingredients]; 
-      array.push(event.target.dataset.tag);
+      array.push(event.currentTarget.dataset.tag);
       let pricearr = [...this.state.Prices];
-      pricearr.push(parseFloat(event.target.dataset.price));
-      let price = parseFloat(event.target.dataset.price);
+      pricearr.push(parseFloat(event.currentTarget.dataset.price));
+      let price = parseFloat(event.currentTarget.dataset.price);
       this.setState((prevState)=>({
         TotalPrice: parseFloat(prevState.TotalPrice) + price,
         Ingredients: array,
@@ -97,14 +100,14 @@ class App extends Component {
     };
     subThis=(event)=>{
       let array = [...this.state.Ingredients]; // make a separate copy of the array
-      let index = array.indexOf(event.target.dataset.tag);
+      let index = array.indexOf(event.currentTarget.dataset.tag);
       let pricearr = [...this.state.Prices];
-      let priceIndex = pricearr.indexOf(parseFloat(event.target.dataset.price));
+      let priceIndex = pricearr.indexOf(parseFloat(event.currentTarget.dataset.price));
       if(index !== -1 && priceIndex !== -1){
         array.splice(index, 1);
         pricearr.splice(priceIndex, 1);
   
-      let price = parseFloat(event.target.dataset.price);
+      let price = parseFloat(event.currentTarget.dataset.price);
       if(this.state.TotalPrice >= 0 ){
       this.setState((prevState)=>({
         Ingredients: array,
@@ -128,7 +131,7 @@ class App extends Component {
     return (
       <div className="App">
       <div className="row">
-      <div class="container">
+      <div className="container">
       <div className="col s12">
       <div className="row">
       <h1>Prepare Your Drink</h1>
@@ -154,7 +157,8 @@ class App extends Component {
       <div className="col s4"><button className="waves-effect waves-light btn grey darken-1" onClick={()=> this.addDrink()}>Add Another Drink</button></div>
       <div className="col s4"><button className="waves-effect waves-light btn red" onClick={ ()=> this.clearOrder()}>Cancel Order</button></div>
       <div className="col s4"><button className="waves-effect waves-light btn green lighten-1" onClick={ ()=> this.finishOrder()}>Finish Order</button></div>
-      </div> 
+      </div>
+      <button onClick={ ()=> console.log(this.state.Order)}>Print</button>
       </div>{/* Buttons/controls  */}
       </div>
       </div>
